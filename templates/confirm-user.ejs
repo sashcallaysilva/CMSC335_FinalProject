@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8" />
+	<title>Confirm User</title>
+</head>
+
+<body>
+	<h1>User Profile</h1>
+	<div>
+		<div id="confirmation message">
+            <!--Add confirmation message below. If no user profile added, show error message-->
+            <%- confirmationMessageBody %>
+        </div>
+
+        <hr>
+        <strong>Task completed at <%= taskCompletedAt %> </strong>
+        <hr>
+        <a href="/">HOME</a>
+	</div>
+</body>
+
+</html>

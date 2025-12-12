@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Random User Generator - Generate User Page</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <header>
+    <h1>Generate User</h1>
+    <p> Create a new user, using your input or generating it randomly, and check your phone number.
+        A confirmation message will be displayed before entering the user in the database.
+    </p>
+    <ul>
+        <li>Click <span class="code">Submit</span> to enter your form</li>
+        <li>Click <span class="code">Reset</span> to reset your form</li>
+        <li>Click <span class="code">Random</span> to fill out the form with random inputs</li>
+    </ul>
+  </header>
+
+  <main>
+	<form id="userForm" action="http://localhost:<%- port %>/generate-user" method="post">
+		<fieldset>
+            <legend>
+                <strong>User Information</strong>
+            </legend>
+            
+			<label>Name: <input type="text" name="name"/></label>
+			<label>Email Address: <input type="email" name="email"  placeholder="example@notreal.notreal"></label>
+            <label>Age: <input type="number" name="age" min="12" max="80" step="1" placeholder="18"></label>
+            <label>Phone: <input type="text" name="phone" placeholder="000-000-0000"></label> 
+            <button type="button" onclick="window.location.href='/phone-verification'">
+                Verify Phone
+            </button>
+		</fieldset>
+
+		<fieldset>
+			<legend>User Status</legend>
+			<label><input type="radio" name="collegeStatus" value="undergrad">Undergraduate Student</label>
+            <label><input type="radio" name="collegeStatus" value="grad">Graduate Student</label>
+            <label><input type="radio" name="collegeStatus" value="professor">Professor</label>
+            <label><input type="radio" name="collegeStatus" value="staff">Staff</label>
+		</fieldset>
+
+		<fieldset>
+			<legend>Select Courses</legend>
+			<select name="coursesSelected" multiple>
+				<option value="CMSC335">CMSC335</option>
+                <option value="CMSC320">CMSC320</option>
+                <option value="CMSC351">CMSC351</option>
+                <option value="CMSC330">CMSC330</option>
+			</select>
+		</fieldset>
+
+		<fieldset>
+			<legend>Additional User Information</legend>
+			<label><textarea rows="5" cols="80" name="userInformation"></textarea></label>
+		</fieldset>
+
+		<br>
+        <button type="submit">Submit</button>
+        <button type="reset">Reset</button>
+		<button type="button" onclick="generateRandomUser()">Random</button>
+	</form>
+  </main>
+
+  <footer>
+    &copy; 2025 Random User Generator
+  </footer>
+</body>
+
+<script>
+    document.getElementById("userForm").addEventListener('submit', (event) => {
+        // Prevent default form submission if cancel
+        if (!confirm("Are you sure you want to submit this form?\nYou will not be able to change your information once submitted.")) {
+            event.preventDefault();
+        }
+    });
+
+
+    async function generateRandomUser() {
+        try {
+            const response = await fetch('https://randomuser.me/api/?nat=us');
+            const data = await response.json();
+            const user = data.results[0];
+
+            // Fill the form: User Information
+            const age = user.dob.age > 12 && user.dob.age < 80? user.dob.age : 12; 
+
+            document.querySelector('[name="name"]').value = `${user.name.first} ${user.name.last}`;
+            document.querySelector('[name="email"]').value = user.email;
+            document.querySelector('[name="age"]').value = age;
+            document.querySelector('[name="phone"]').value = user.phone.replace(/\D/g, "").replace(/(\d{3})(\d{3})(\d{4})/, "$1-$2-$3");
+
+            // Fill the form: College Status (age-based)
+            let eligibleStatuses;
+
+            if (age > 16 && age < 30) {
+                eligibleStatuses = ["undergrad", "grad"];
+            } else if (age >= 30) {
+                eligibleStatuses = ["professor", "staff"];
+            } else {
+                // Fallback for unusual cases (15 or younger)
+                eligibleStatuses = ["undergrad"];
+            }
+
+            const randomStatus = eligibleStatuses[Math.floor(Math.random() * eligibleStatuses.length)];
+            document.querySelectorAll('[name="collegeStatus"]').forEach(r => {
+                r.checked = false; // Clear all existing checks
+            });
+
+            const chosenRadio = document.querySelector(`[name="collegeStatus"][value="${randomStatus}"]`);
+            if (chosenRadio) 
+                chosenRadio.checked = true; // Check the selected one
+
+            // Fill the form: Courses Selected
+            const courses = ["CMSC335", "CMSC320", "CMSC351", "CMSC330"];
+            const count = Math.floor(Math.random() * 3) + 1;
+            const selected = [];
+            const shuffled = [...courses].sort(() => 0.5 - Math.random()); // shuffle courses and pick count items
+            const chosenCourses = shuffled.slice(0, count);
+            
+            const selectEl = document.querySelector('[name="coursesSelected"]'); 
+            [...selectEl.options].forEach(opt => { opt.selected = false; }); // Clear any previous selection
+            
+            chosenCourses.forEach(c => {
+                const opt = selectEl.querySelector(`option[value="${c}"]`);
+                if (opt) opt.selected = true; // Select the random ones
+            });
+
+            // Fill the form: Additional Information
+            document.querySelector('[name="userInformation"]').value = `I live in ${user.location.city}, ${user.location.state}`;
+
+
+        } catch (error) {
+            console.error('Error fetching random user:', error);
+            alert("Unable to generate random user");
+        }
+    }
+
+</script>
+
+</html>
