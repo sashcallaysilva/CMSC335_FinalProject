@@ -1,0 +1,30 @@
+<h1>User List</h1>
+
+<ul>
+    <% users.forEach(user => { %>
+    <li>
+        <strong><%= user.name %></strong><br>
+        Email: <%= user.email %><br>
+        Age: <%= user.age %><br>
+        Phone: <%= user.phone %><br>
+        College Status: <%= user.collegeStatus %><br>
+        Courses:
+        <% if (user.coursesSelected && user.coursesSelected.length >0) { %>
+         <%= user.coursesSelected.join(", ") %>
+        <% } else { %>
+         -
+        <% } %>
+        <br>
+        Info: <%= user.userInformation %><br>
+        Created At:
+        <% if (user.createdAt) { %>
+        <%= user.createdAt.toLocaleString ? user.createdAt.toLocaleString() : user.createdAt %>
+    <% } else { %>
+     -
+    <% } %>
+
+    <hr>
+
+    </li>
+    <% }) %>
+</ul>
