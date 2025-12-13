@@ -2,4 +2,4 @@
 
 ## Group Members
 
-- Myungjun Ko (119403877)
+- Myungjun Ko (mko417)
