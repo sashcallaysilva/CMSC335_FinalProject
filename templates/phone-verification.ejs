@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Phone Number Verifer</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <header>
+    <h1>Verify Phone Number</h1>
+    <p>
+        Verify a phone number manually by entering it into the form below. Type only the digits of the number into the form (no parentheses or other symbols), then:
+    </p>
+    <ul>
+        <li>Click <span class="code">Submit</span> to enter your form</li>
+        <li>Click <span class="code">Reset</span> to reset your form</li>
+    </ul>
+  </header>
+
+  <main>
+	<form id="phoneForm" action="http://localhost:<%- port %>/phone-verification" method="post">
+		<fieldset>
+            <legend>
+                <strong>Phone Number</strong>
+            </legend>
+            <!-- phone numbers worldwide have inconsistent lengths; for example, hong kong has 8 digits, no dashes -->
+            <!-- the API can handle all this, so all I need to do is reject obviously mistyped ones (forms containing letters) -->
+			<label>Intl. Area Code: +<input type="text" name="intl" placeholder="1"/></label>
+			<label>Phone Number: <input type="text" name="phone"  placeholder="311 555 2368">
+		</fieldset>
+
+		<br>
+        <button type="submit">Submit</button>
+        <button type="reset">Reset</button>
+	</form>
+  </main>
+
+  <footer>
+    &copy; 2025 Random User Generator
+  </footer>
+</body>
+
+<script>
+    document.getElementById("phoneForm").addEventListener('submit', (event) => {
+        let failure = "";
+        // validate, then confirm
+        // this isn't going to even touch the backend, so i'm comfortable doing this here
+        const intl = document.getElementById("intl").value;
+        const phone = document.getElementById("phone1").value;
+        if((intl.length !== 0) && isNaN(intl)){
+            failure += "- Invalid area code\n";
+        }
+        if(isNaN(phone.replace(/\s+/g, ""))){
+            // features regex to remove whitespace - i could've included removal of 
+            // other characters, too, but then it'd be too lenient for the API to manage
+            failure += "- Invalid phone number\n";
+        }
+        if (failure) {
+            failure += "Fix these errors before submitting again.";
+            alert(failure);
+            event.preventDefault();
+        } else {
+            if (!confirm("Are you sure you'd like to submit?")) {
+                event.preventDefault();
+            }
+        }
+    });
+
+</script>
+
+</html>
