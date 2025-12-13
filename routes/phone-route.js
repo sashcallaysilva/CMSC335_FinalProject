@@ -19,7 +19,7 @@ router.post("/", async (req, res) => {
     const c_region = result.phone_location.region;
     const c_city = result.phone_location.city;
 
-    res.render("confirm-user", {
+    res.render("phone-verified", {
       taskCompletedAt: now.toString(),
       confirmationMessageBody: `<strong>Is this phone number valid? </strong>${validity? "Yes":"No"}<br>
 		                            <strong>Phone Number: </strong>${formatted}<br>
