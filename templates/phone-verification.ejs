@@ -26,8 +26,8 @@
             </legend>
             <!-- phone numbers worldwide have inconsistent lengths; for example, hong kong has 8 digits, no dashes -->
             <!-- the API can handle all this, so all I need to do is reject obviously mistyped ones (forms containing letters) -->
-			<label>Intl. Area Code: +<input type="text" name="intl" placeholder="1"/></label>
-			<label>Phone Number: <input type="text" name="phone"  placeholder="311 555 2368">
+			<label>Intl. Area Code: +<input type="text" name="intl" placeholder="1" value="<%= phone ? '1' : '' %>" /></label>
+			<label>Phone Number: <input type="text" name="phone"  placeholder="311 555 2368" value="<%= phone || '' %>">
 		</fieldset>
 
 		<br>

@@ -21,42 +21,49 @@
 
   <main>
 	<form id="userForm" action="http://localhost:<%- port %>/generate-user" method="post">
-		<fieldset>
-            <legend>
-                <strong>User Information</strong>
-            </legend>
-            
-			<label>Name: <input type="text" name="name"/></label>
-			<label>Email Address: <input type="email" name="email"  placeholder="example@notreal.notreal"></label>
-            <label>Age: <input type="number" name="age" min="12" max="80" step="1" placeholder="18"></label>
-            <label>Phone: <input type="text" name="phone" placeholder="000-000-0000"></label> 
-            <button type="button" onclick="window.location.href='/phone-verification'">
-                Verify Phone
-            </button>
-		</fieldset>
+        <div class="userForm-content">
+            <fieldset class="user-info">
+                <legend>
+                    <strong>User Information</strong>
+                </legend>
+                
+                <div class="main-content">
+                    <label>Name: <input type="text" name="name"/></label>
+                    <label>Email Address: <input type="email" name="email" size="35" placeholder="example@notreal.notreal"></label>
+                    <label>Age: <input type="number" name="age" min="12" max="80" step="1" placeholder="18"></label>
+                </div>
+                
+                <div class="phone-content">
+                    <label>Phone: <input type="text" name="phone" placeholder="000-000-0000"></label> 
+                    <button type="button" onclick="verifyPhoneReroute()">
+                        Verify Phone
+                    </button>
+                </div>
+            </fieldset>
 
-		<fieldset>
-			<legend>User Status</legend>
-			<label><input type="radio" name="collegeStatus" value="undergrad">Undergraduate Student</label>
-            <label><input type="radio" name="collegeStatus" value="grad">Graduate Student</label>
-            <label><input type="radio" name="collegeStatus" value="professor">Professor</label>
-            <label><input type="radio" name="collegeStatus" value="staff">Staff</label>
-		</fieldset>
+            <fieldset class="user-status">
+                <legend>User Status</legend>
+                <label><input type="radio" name="collegeStatus" value="undergrad">Undergraduate Student</label>
+                <label><input type="radio" name="collegeStatus" value="grad">Graduate Student</label>
+                <label><input type="radio" name="collegeStatus" value="professor">Professor</label>
+                <label><input type="radio" name="collegeStatus" value="staff">Staff</label>
+            </fieldset>
 
-		<fieldset>
-			<legend>Select Courses</legend>
-			<select name="coursesSelected" multiple>
-				<option value="CMSC335">CMSC335</option>
-                <option value="CMSC320">CMSC320</option>
-                <option value="CMSC351">CMSC351</option>
-                <option value="CMSC330">CMSC330</option>
-			</select>
-		</fieldset>
+            <fieldset>
+                <legend>Select Courses</legend>
+                <select name="coursesSelected" multiple>
+                    <option value="CMSC335">CMSC335</option>
+                    <option value="CMSC320">CMSC320</option>
+                    <option value="CMSC351">CMSC351</option>
+                    <option value="CMSC330">CMSC330</option>
+                </select>
+            </fieldset>
 
-		<fieldset>
-			<legend>Additional User Information</legend>
-			<label><textarea rows="5" cols="80" name="userInformation"></textarea></label>
-		</fieldset>
+            <fieldset>
+                <legend>Additional User Information</legend>
+                <label><textarea rows="5" cols="80" name="userInformation"></textarea></label>
+            </fieldset>
+        </div>
 
 		<br>
         <button type="submit">Submit</button>
@@ -77,6 +84,35 @@
             event.preventDefault();
         }
     });
+
+    function validatePhone(phone) {
+        // phone
+        if (phone.length !== 12 || phone.charAt(3) != '-' || phone.charAt(7) != '-')
+            throw new InvalidParams("Invalid phone", "Phone")
+
+        const phoneNums = phone.split('-');
+        if (phoneNums.length !== 3 
+            || !Number.isInteger(Number(phoneNums[0])) 
+            || !Number.isInteger(Number(phoneNums[1]))
+            || !Number.isInteger(Number(phoneNums[2]))
+        )
+            throw new InvalidParams("Invalid phone values", "Phone")
+
+
+        // return as-is
+        return phone;
+    }
+
+    function verifyPhoneReroute() {
+        try {
+            const phone = validatePhone(document.querySelector('[name="phone"]').value);
+            window.location.href = `/phone-verification?phone=${encodeURIComponent(phone)}`;
+        } catch (error) {
+            console.log(`Error: ${error}`)
+            alert("Invalid phone. Try again!")
+        }
+
+    }
 
 
     async function generateRandomUser() {

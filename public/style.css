@@ -1,0 +1,215 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+
+:root {
+    /* Colors */
+    --color1: #270722;
+    --color2: #ECCE8E;
+    --color3: #DBCF96;
+    --color4: #C2C6A7;
+    --color5: #9AC2C5;
+
+    /* Font weight */
+    --font-weight-normal: 400;
+    --font-weight-medium: 500;
+    --font-weight-semibold: 600;
+    --font-weight-bold: 700;
+
+    /* Font size */
+    --font-size-xs: 0.75rem;
+    --font-size-s: 0.9rem;
+    --font-size-n: 1rem;
+    --font-size-m: 1.1rem;
+    --font-size-l: 1.5rem;
+    --font-size-xl: 2rem;
+    --font-size-xxl: 2.3rem;
+
+    /* Border radius */
+    --border-radius-s: 8px;
+    --border-radius-m: 30px;
+    --border-radius-circle: 50%;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    font-size: var(--font-size-n);
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+    font-family: "Poppins", Arial, Helvetica, sans-serif;
+    background-color: var(--color2);
+    color: var(--color1);
+    padding: 20px;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+/* HEADER */
+header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+h1 {
+    font-size: var(--font-size-xl);
+}
+
+/* MAIN */
+main {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.action-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    border: rgb(53,53,53) 0.1rem solid;
+    border-radius: var(--border-radius-m);
+    padding: 20px;
+}
+
+a {
+    text-decoration: none;
+    padding: 5px;
+    border-radius: var(--border-radius-s);
+}
+
+a:hover {
+    color: var(--color2);
+    background-color: var(--color1);
+    font-size: var(--font-size-m);
+}
+
+/* FOOTER */
+footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* BUTTON */
+button {
+    font-weight: 600;
+    padding: 1rem;
+    width: 8rem;
+    border-radius: 2rem;
+}
+
+button:hover {
+    color: var(--color3);
+    background-color: var(--color1);
+}
+
+/* FORM */
+form legend {
+    background-color: white;
+    color: var(--color1);
+    font-weight: var(--font-weight-bold);
+    border: rgb(53,53,53) 0.1rem solid;
+    border-radius: var(--border-radius-s);
+    padding: 10px
+}
+
+form fieldset {
+    background-color: whitesmoke;
+    padding: 20px;
+    border: rgb(53,53,53) 0.1rem solid;
+    border-radius: var(--border-radius-m);
+}
+
+/******************************************/
+/******************************************/
+/******************************************/
+
+#phoneForm fieldset {
+    display: flex;
+    flex-direction: row;
+    padding: 20px;
+    gap: 50px;
+}
+
+#userForm .userForm-content {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+#userForm .userForm-content .user-info {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    padding: 20px;
+    gap: 50px;
+}
+
+#userForm .userForm-content .user-info .main-content {
+    display: flex;
+    flex-direction: row;
+    gap: 20px
+}
+
+#userForm .userForm-content .user-info .phone-content {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 20px
+}
+
+#userForm .userForm-content .user-info .phone-content button {
+    width: 200px;
+    height: 50px;
+    font-size: var(--font-size-n);
+}
+
+#userForm .userForm-content .user-status {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 20px
+}
+
+#userForm .userForm-content .user-status label {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 10px
+}
+
+.card-list {
+  list-style: none;          /* remove bullets */
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1rem;
+}
+
+.card {
+  background: #fdf6e3;
+  border: 3px solid #000;
+  box-shadow: 6px 6px 0 #000;
+  font-family: "Press Start 2P", monospace;
+  padding: 20px;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+}

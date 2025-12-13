@@ -2,8 +2,9 @@ const express = require("express");
 const router = express.Router();
 
 router.get("/", (req, res) => {
+  const PHONE = Object.keys(req.query).length > 0? req.query.phone.replace(/-/g, "") || "" : "";
   const PORT = process.env.PORT || 3000;
-  res.render("phone-verification", { port: PORT });
+  res.render("phone-verification", { port: PORT, phone: PHONE });
 });
 
 // form submitted - now we ask the API: 
@@ -25,7 +26,7 @@ router.post("/", async (req, res) => {
 		                            <strong>Phone Number: </strong>${formatted}<br>
                                 <strong>Country: </strong>${c_name}<br>
                                 <strong>Region: </strong>${c_region}<br>
-                                <strong>City:<br></strong>${c_city}<br>`
+                                <strong>City: </strong>${c_city}<br>`
     });
 
   } catch (error) {
