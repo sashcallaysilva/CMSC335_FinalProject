@@ -1,6 +1,6 @@
 # CMSC335 Final Project
 
-## Submitted by:
+## Submitted by: 
 
 ## Group Members
 
