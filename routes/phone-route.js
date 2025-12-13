@@ -21,7 +21,7 @@ router.post("/", async (req, res) => {
 
     res.render("phone-verified", {
       taskCompletedAt: now.toString(),
-      confirmationMessageBody: `<strong>Is this phone number valid? </strong>${validity? "Yes":"No"}<br>
+      verifiedBody: `<strong>Is this phone number valid? </strong>${validity? "Yes":"No"}<br>
 		                            <strong>Phone Number: </strong>${formatted}<br>
                                 <strong>Country: </strong>${c_name}<br>
                                 <strong>Region: </strong>${c_region}<br>
@@ -32,7 +32,7 @@ router.post("/", async (req, res) => {
       console.error('Phone verification error:', error);
       res.render("phone-verified", {
         taskCompletedAt: now.toString(),
-        confirmationMessageBody: `<p>The API encountered an error: ${error.message}</p><br>
+        verifiedBody: `<p>The API encountered an error: ${error.message}</p><br>
         <p><i>Error code: ${error.code}</i></p>`
       });
   }
