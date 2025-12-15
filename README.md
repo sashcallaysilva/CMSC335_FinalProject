@@ -13,7 +13,7 @@
 
 ## YouTube Video Link: <Placeholder>
 
-## APIs: Random User Generator (https://randomuser.me/), Phone Number Verifier <Placeholder>
+## APIs: Random User Generator (https://randomuser.me/), Phone Number Verifier (https://www.abstractapi.com/api/phone-validation-api)
 
 ## Contact Email:  <Placeholder>
 
