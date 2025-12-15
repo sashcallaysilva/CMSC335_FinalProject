@@ -4,7 +4,8 @@ const router = express.Router();
 router.get("/", (req, res) => {
   const PHONE = Object.keys(req.query).length > 0? req.query.phone.replace(/-/g, "") || "" : "";
   const PORT = process.env.PORT || 3000;
-  res.render("phone-verification", { port: PORT, phone: PHONE });
+  // res.render("phone-verification", { port: PORT, phone: PHONE }); // for dev
+  res.render("phone-verification", { phone: PHONE });
 });
 
 // form submitted - now we ask the API: 

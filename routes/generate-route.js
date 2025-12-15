@@ -41,7 +41,8 @@ function validate(params) {
 // GET /generate-user
 router.get("/", (req, res) => {
   const PORT = process.env.PORT || 3000;
-  res.render("generate-user", { port: PORT });
+  // res.render("generate-user", { port: PORT });  // for dev
+  res.render("generate-user");
 });
 
 // POST /generate-user
