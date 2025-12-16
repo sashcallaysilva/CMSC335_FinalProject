@@ -1,6 +1,6 @@
 # CMSC335 Final Project
 
-## Submitted by: 
+## Submitted by: Victor Tan (victan3)
 
 ## Group Members
 
@@ -15,6 +15,6 @@
 
 ## APIs: Random User Generator (https://randomuser.me/), Phone Number Verifier (https://www.abstractapi.com/api/phone-validation-api)
 
-## Contact Email:  <Placeholder>
+## Contact Email: victan3@terpmail.umd.edu
 
 ## Deployed App Link: https://cmsc335-finalproject-7uxk.onrender.com/
